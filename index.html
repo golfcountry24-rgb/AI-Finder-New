@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#e9ecef" />
+    <script>
+      // theme before the first paint (see src/theme): stored choice, else the system preference
+      (function () {
+        var d = false;
+        try {
+          var t = localStorage.getItem('ai-finder-theme');
+          d = t === 'dark' || (t !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+        } catch (e) {}
+        document.documentElement.setAttribute('data-theme', d ? 'dark' : 'light');
+        document.documentElement.classList.add('js'); // the pre-rendered HTML is only for no-JS readers
+        if (d) document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0b0e11');
+      })();
+    </script>
+    <style>
+      .js .prerender { display: none; }
+      .prerender { max-width: 72ch; margin: 0 auto; padding: 24px 16px; font-family: system-ui, sans-serif; line-height: 1.55; }
+    </style>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!--seo-head-->
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <h1>AI Finder — a catalogue of AI tools and websites</h1>
+      <p>AI Finder needs JavaScript to load live data from the FreeSerp API.</p>
+      <p><a href="./">Explore</a> · <a href="./new">New AI</a> · <a href="./about">About</a></p>
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

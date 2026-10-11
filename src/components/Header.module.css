@@ -1,0 +1,314 @@
+/* floating pill, centred on wide screens */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding-top: var(--space-4);
+  pointer-events: none; /* only the bar itself is interactive */
+}
+
+.wrap {
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 100%;
+  padding: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-glass);
+  backdrop-filter: saturate(1.4) blur(18px);
+  -webkit-backdrop-filter: saturate(1.4) blur(18px);
+  box-shadow: var(--inset-highlight), 0 16px 40px -24px rgb(16 20 24 / 0.4);
+  pointer-events: auto;
+  transition:
+    background-color var(--dur-slow) var(--ease),
+    box-shadow var(--dur-slow) var(--ease);
+}
+
+.inner > a:first-child {
+  padding: 0 var(--space-3) 0 4px;
+  min-height: 44px;
+}
+
+/* once the page scrolls: almost opaque, slightly deeper shadow */
+.scrolled .inner {
+  background: var(--surface-glass-strong);
+  box-shadow: var(--inset-highlight), 0 20px 44px -22px rgb(16 20 24 / 0.45);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: var(--space-1);
+}
+
+.link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color var(--dur-fast) var(--ease),
+    background-color var(--dur) var(--ease);
+}
+
+.link:hover {
+  color: var(--ink);
+  background: var(--hover-overlay);
+}
+
+.active,
+.active:hover {
+  color: var(--surface);
+  background: var(--ink);
+}
+
+/* number of saved sites next to "Saved" */
+.badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  margin-left: 6px;
+  padding: 0 6px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--mint);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  animation: badge-in var(--dur-slow) var(--ease-spring);
+}
+
+@keyframes badge-in {
+  from {
+    transform: scale(0.4);
+  }
+}
+
+.api {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.api:hover {
+  background: var(--hover-overlay);
+  color: var(--ink);
+}
+
+.dot {
+  display: none;
+}
+
+/* ---- mobile menu button: two lines that morph into a cross ---- */
+.toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ink);
+  transition: background-color var(--dur) var(--ease);
+}
+
+.toggle:hover {
+  background: var(--ink-hover);
+}
+
+.burger,
+.burger::before,
+.burger::after {
+  display: block;
+  width: 16px;
+  height: 1.5px;
+  border-radius: 1px;
+  background: var(--surface);
+  transition:
+    transform var(--dur-slow) var(--ease-drawer),
+    background-color var(--dur) var(--ease);
+}
+
+.burger {
+  position: relative;
+  background: transparent;
+}
+
+.burger::before,
+.burger::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+.burger::before {
+  top: -3px;
+}
+
+.burger::after {
+  top: 3px;
+}
+
+.burgerOpen::before {
+  transform: translateY(3px) rotate(45deg);
+}
+
+.burgerOpen::after {
+  transform: translateY(-3px) rotate(-45deg);
+}
+
+/* tablet: tighter links, API docs moves to the footer */
+@media (min-width: 721px) and (max-width: 1080px) {
+  .api {
+    display: none;
+  }
+
+  .link {
+    padding: 0 var(--space-3);
+  }
+}
+
+@media (max-width: 720px) {
+  .header {
+    padding-top: var(--space-2);
+  }
+
+  .wrap {
+    display: block;
+  }
+
+  .inner {
+    width: 100%;
+    padding: 5px 5px 5px 6px;
+  }
+
+  .inner > a:first-child {
+    padding-right: var(--space-1);
+  }
+
+  .actions {
+    gap: 6px;
+  }
+
+  .toggle {
+    display: grid;
+  }
+
+  .actions {
+    margin-left: auto;
+  }
+
+  /* dropdown tile under the bar; links slide up one after another */
+  .nav {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    padding: var(--space-2);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-lg), var(--inset-highlight);
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+    transform-origin: top center;
+    transition:
+      opacity var(--dur-slow) var(--ease),
+      transform var(--dur-slow) var(--ease-drawer),
+      visibility var(--dur-slow);
+  }
+
+  .navOpen {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+  }
+
+  .nav > * {
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+      opacity var(--dur-slow) var(--ease),
+      transform var(--dur-slow) var(--ease),
+      background-color var(--dur) var(--ease),
+      color var(--dur-fast) var(--ease);
+  }
+
+  .navOpen > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  .navOpen > :nth-child(2) {
+    transition-delay: 40ms;
+  }
+
+  .navOpen > :nth-child(3) {
+    transition-delay: 80ms;
+  }
+
+  .navOpen > :nth-child(4) {
+    transition-delay: 120ms;
+  }
+
+  .navOpen > :nth-child(5) {
+    transition-delay: 160ms;
+  }
+
+  .link,
+  .api {
+    min-height: 52px;
+    padding: 0 var(--space-4);
+    border-radius: var(--radius-md);
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .active,
+  .active:hover {
+    color: var(--mint);
+    background: var(--accent);
+  }
+
+  .api {
+    margin-top: var(--space-1);
+    background: var(--surface-sunken);
+  }
+}

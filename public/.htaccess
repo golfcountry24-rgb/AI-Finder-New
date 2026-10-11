@@ -1,0 +1,34 @@
+# AI Finder — Apache config for ordinary shared hosting (nginx: deploy/nginx.conf).
+# Clean URLs: /new → new.html, /about → about.html, /site/<domain> → site.php;
+# unknown paths → 404.html (status 404).
+# For a sub-folder build (VITE_BASE=/folder/) change the ErrorDocument path to /folder/404.html.
+
+Options -MultiViews
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # /new/ → /new
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.+)/$ $1 [R=301,L]
+  # /new.html → /new, /index.html → / (one URL per page)
+  RewriteCond %{THE_REQUEST} \s/+(.*?/)?index\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L,NE]
+  RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L,NE]
+  # /site/<domain> → site.php (server-rendered tags and profile; the app takes over in the browser)
+  RewriteRule ^site/([^/]+)$ site.php?d=$1 [L,QSA]
+  # /new → new.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.+)$ $1.html [L]
+</IfModule>
+
+ErrorDocument 404 /404.html
+
+<IfModule mod_expires.c>
+  <FilesMatch "^assets/">
+    ExpiresActive On
+    ExpiresDefault "access plus 1 year"
+  </FilesMatch>
+</IfModule>

@@ -1,0 +1,264 @@
+/* Colours come from --card-* variables so the same card can sit on white or
+   on ink (SiteResults sets the ink variant on a fixed rhythm of grid cells). */
+.card {
+  --card-bg: var(--surface);
+  --card-fg: var(--ink);
+  --card-body: var(--ink-2);
+  --card-muted: var(--ink-3);
+  --card-line: var(--line);
+  --go-bg: var(--surface-sunken);
+  --go-fg: var(--ink);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+  padding: 26px;
+  border-radius: var(--radius-xl);
+  background: var(--card-bg);
+  color: var(--card-fg);
+  box-shadow: var(--inset-highlight);
+  transition:
+    box-shadow var(--dur-lift) var(--ease-drawer),
+    transform var(--dur-lift) var(--ease-drawer);
+}
+
+:global(.card-ink) .card,
+.ink {
+  --card-bg: var(--night);
+  --card-fg: var(--night-text);
+  --card-body: var(--night-body);
+  --card-muted: var(--night-muted);
+  --card-line: var(--night-line);
+  --go-bg: rgb(255 255 255 / 0.08);
+  --go-fg: var(--night-text);
+  --chip-bg: rgb(255 255 255 / 0.08);
+  --chip-fg: var(--night-body);
+  --chip-line: var(--night-line);
+  --match-bg: var(--mint);
+  --match-fg: var(--accent);
+  --meter-on: var(--mint);
+  --meter-off: rgb(255 255 255 / 0.14);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-6px) rotate(-0.4deg);
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding-right: 156px; /* room for the save / compare / visit buttons */
+}
+
+/* the icon tile turns with a small spring when the card is hovered */
+.top > :first-child {
+  transition: transform var(--dur-lift) var(--ease-spring);
+}
+
+.card:hover .top > :first-child {
+  transform: rotate(-8deg) scale(1.08);
+}
+
+.ident {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+  max-width: 100%;
+}
+
+.name {
+  font-size: var(--fs-title);
+  line-height: 1.25;
+  letter-spacing: var(--tracking-title);
+}
+
+.open {
+  all: unset;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+/* stretch the button over the whole card */
+.open::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.open:focus-visible {
+  box-shadow: none; /* the ring is drawn around the whole card by ::after */
+}
+
+.open:focus-visible::after {
+  box-shadow: var(--focus-ring);
+}
+
+.domain {
+  overflow: hidden;
+  color: var(--card-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.summary {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--card-body);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body);
+}
+
+.muted {
+  color: var(--card-muted);
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--card-line);
+}
+
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  color: var(--card-muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.built {
+  overflow: hidden;
+  padding-right: var(--space-2);
+  border-right: 1px solid var(--card-line);
+  font-family: var(--font-sans);
+  text-overflow: ellipsis;
+}
+
+.fresh {
+  flex: none;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--mint);
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+
+:global(.card-ink) .fresh {
+  background: var(--mint);
+  color: var(--accent);
+}
+
+/* save, compare and visit sit in the top-right corner, above the stretched button */
+.tools {
+  position: absolute;
+  z-index: 1;
+  top: 26px;
+  right: 26px;
+  display: flex;
+  gap: 6px;
+}
+
+/* round "visit" button: fills with mint when the card is hovered */
+.visit {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--go-bg);
+  color: var(--go-fg);
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    transform var(--dur-slow) var(--ease-drawer);
+}
+
+.visit svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform var(--dur-slow) var(--ease-drawer);
+}
+
+.card:hover .visit {
+  background: var(--mint);
+  color: var(--accent);
+}
+
+.visit:hover {
+  transform: scale(1.06);
+}
+
+.visit:hover svg {
+  transform: translate(1.5px, -1.5px);
+}
+
+.visit:active {
+  transform: scale(0.94);
+}
+
+@media (max-width: 560px) {
+  .card {
+    gap: var(--space-3);
+    padding: var(--space-5);
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+  }
+
+  .top {
+    flex-direction: row;
+    align-items: center;
+    padding-right: 140px;
+  }
+
+  .summary {
+    line-height: 1.55;
+  }
+
+  .meta {
+    gap: 6px;
+  }
+
+  .built {
+    max-width: 9ch;
+  }
+
+  .tools {
+    top: var(--space-5);
+    right: var(--space-4);
+    gap: 4px;
+  }
+
+  .tools > * {
+    width: 40px;
+    height: 40px;
+  }
+}

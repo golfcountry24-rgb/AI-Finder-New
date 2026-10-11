@@ -1,0 +1,93 @@
+/* Round icon buttons for "save" and "compare". Colours follow the card they sit on
+   (--go-bg / --go-fg are set by SiteCard for white and ink cards). */
+.action {
+  position: relative;
+  z-index: 1; /* above the card's stretched "open" button */
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--go-bg, var(--surface-sunken));
+  color: var(--go-fg, var(--ink));
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    transform var(--dur-slow) var(--ease-spring);
+}
+
+.action:hover {
+  transform: scale(1.06);
+}
+
+.action:active {
+  transform: scale(0.92);
+}
+
+.action svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.on {
+  background: var(--accent);
+  color: var(--mint);
+}
+
+.on .star {
+  fill: currentColor;
+  animation: pop var(--dur-lift) var(--ease-spring);
+}
+
+@keyframes pop {
+  40% {
+    transform: scale(1.35) rotate(-12deg);
+  }
+}
+
+.action[data-blocked] {
+  opacity: 0.55;
+}
+
+.shake {
+  animation: shake 0.4s var(--ease);
+}
+
+@keyframes shake {
+  20%,
+  60% {
+    transform: translateX(-3px);
+  }
+  40%,
+  80% {
+    transform: translateX(3px);
+  }
+}
+
+/* with a visible label: a pill instead of a circle */
+.labelled {
+  display: inline-flex;
+  gap: var(--space-2);
+  width: auto;
+  padding: 0 var(--space-5) 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.labelled:hover {
+  transform: none;
+  background: var(--surface-hover);
+}
+
+.labelled.on:hover {
+  background: var(--accent-hover);
+}

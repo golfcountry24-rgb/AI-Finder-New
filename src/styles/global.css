@@ -1,0 +1,522 @@
+/* ==========================================================================
+   AI Finder — "Bento Atlas" design tokens (see DESIGN.md)
+   Cool silver canvas, white and ink tiles, one forest accent with a mint
+   signal colour used only on forest/ink surfaces. Every colour, size,
+   radius, shadow and duration used by components comes from here.
+   ========================================================================== */
+
+:root {
+  /* ---- colour: foundation ---- */
+  --canvas: #e9ecef;
+  --surface: #ffffff;
+  --surface-sunken: #f1f3f5;
+  --surface-track: #dde1e6;
+  --surface-hover: #eceff2;
+  --hover-overlay: rgb(16 20 24 / 0.06);
+  --favicon-bg: #ffffff;
+  --line: #dde1e6;
+  --line-soft: rgb(16 20 24 / 0.06);
+  --line-strong: #c4cad2;
+  --control-border: #8a929c;
+
+  /* ---- colour: text ---- */
+  --ink: #101418;
+  --ink-hover: #252b31;
+  --ink-2: #454d5a;
+  --ink-3: #5b6370;
+  --ink-disabled: #9aa1aa;
+
+  /* ---- colour: accent (forest) + signal (mint, only on forest / ink) ---- */
+  --accent: #0f3a2c;
+  --accent-hover: #155240;
+  --accent-soft: #dcf6ea;
+  --accent-ink: #0f3a2c; /* the accent used as text or a line on light surfaces */
+  --mint: #3ee0a0;
+  --mint-soft: rgb(62 224 160 / 0.32);
+
+  /* ---- colour: dark tiles (ink) ---- */
+  --night: #101418;
+  --night-2: rgb(255 255 255 / 0.07);
+  --night-line: rgb(255 255 255 / 0.08);
+  --night-text: #f3f5f7;
+  --night-body: #cdd3da;
+  --night-muted: #9aa3ae;
+  --forest-text: #e7f6ef;
+  --forest-muted: #a9d4c2;
+
+  /* ---- colour: functional ---- */
+  --error: #b42318;
+  --error-soft: #fcecea;
+  --error-line: #f1c4be;
+  --success: #1f8a5b;
+  --scrim: rgb(16 20 24 / 0.45);
+  --surface-glass: rgb(255 255 255 / 0.78);
+  --surface-glass-strong: rgb(255 255 255 / 0.94);
+  --canvas-glass: rgb(233 236 239 / 0.92);
+  --canvas-clear: rgb(233 236 239 / 0);
+  --accent-ring: 0 0 0 2px var(--accent), 0 0 0 7px var(--mint-soft);
+  --success-ring: 0 0 0 3px rgb(31 138 91 / 0.18);
+
+  /* ---- colour: footer (ink tile) ---- */
+  --footer-bg: var(--night);
+  --footer-text: var(--night-text);
+  --footer-muted: var(--night-muted);
+  --footer-line: var(--night-line);
+
+  /* ---- type ---- */
+  --font-display: 'Unbounded Variable', 'Unbounded', 'Onest Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-sans: 'Onest Variable', 'Onest', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, 'Cascadia Mono', monospace;
+
+  --fs-xs: 0.75rem; /* 12 – tags */
+  --fs-caption: 0.8125rem; /* 13 – meta, data */
+  --fs-sm: 0.875rem; /* 14 – controls */
+  --fs-body-sm: 0.90625rem; /* 14.5 – summaries */
+  --fs-base: 1rem; /* 16 – body */
+  --fs-md: 1.125rem; /* 18 – lead */
+  --fs-title: 1.1875rem; /* 19 – item titles (display face) */
+  --fs-lg: 1.375rem; /* 22 – sub headings */
+  --fs-heading: clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem); /* 28 → 40 – section headings */
+  --fs-page: clamp(2.25rem, 1.5rem + 2.8vw, 3.75rem);
+  --fs-display: clamp(2.25rem, 1.3rem + 3.2vw, 3.875rem);
+
+  --lh-tight: 1.06;
+  --lh-snug: 1.3;
+  --lh-body: 1.6;
+
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.03em;
+  --tracking-title: -0.02em;
+
+  /* ---- spacing: 4px base ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 56px;
+  --space-10: 80px;
+  --gap-bento: 14px;
+
+  /* ---- radii: tiles are soft, controls are pills, inner parts tighter ---- */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+  --radius-pill: 9999px;
+
+  /* ---- elevation (tinted with ink / forest, never pure black) ---- */
+  --shadow-xs: 0 1px 2px rgb(16 20 24 / 0.06);
+  --shadow-sm: 0 1px 2px rgb(16 20 24 / 0.04), 0 8px 24px -12px rgb(16 20 24 / 0.12);
+  --inset-highlight: inset 0 0 0 1px rgb(16 20 24 / 0.05);
+  --shadow-inset: inset 0 1px 2px rgb(16 20 24 / 0.06);
+  --glow: radial-gradient(closest-side, rgb(62 224 160 / 0.3), rgb(62 224 160 / 0));
+  --shadow-search-hover: 0 1px 2px rgb(16 20 24 / 0.05), 0 8px 22px -10px rgb(16 20 24 / 0.16);
+  --shadow-md: 0 30px 60px -30px rgb(15 58 44 / 0.45);
+  --shadow-knob: 0 1px 2px rgb(16 20 24 / 0.25);
+  --shadow-lg: 0 4px 12px rgb(16 20 24 / 0.06), 0 40px 80px -32px rgb(16 20 24 / 0.4);
+
+  /* ---- interaction ---- */
+  --focus-ring: 0 0 0 2px var(--canvas), 0 0 0 4px var(--accent), 0 0 0 8px var(--mint-soft);
+  --focus-ring-inset: inset 0 0 0 2px var(--accent);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 150ms;
+  --dur: 220ms;
+  --dur-slow: 360ms;
+  --dur-lift: 600ms;
+
+  /* ---- layout ---- */
+  --container: 1280px;
+
+  color-scheme: light;
+  --gutter: clamp(16px, 4vw, 40px);
+  --header-h: 84px;
+  --control-h: 44px;
+  --control-h-sm: 40px;
+}
+
+/* ---- dark theme: <html data-theme="dark">, set before paint by the inline script in
+   index.html (stored choice, or the system preference) and kept in sync by ThemeProvider ---- */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --canvas: #0b0e11;
+  --surface: #151a1f;
+  --surface-sunken: #1d232a;
+  --surface-track: #1a2026;
+  --surface-hover: #232a32;
+  --hover-overlay: rgb(255 255 255 / 0.07);
+  --favicon-bg: #e9ecef;
+  --line: #2a323b;
+  --line-soft: rgb(255 255 255 / 0.07);
+  --line-strong: #3a434d;
+  --control-border: #6b7682;
+
+  --ink: #eef2f5;
+  --ink-hover: #ffffff;
+  --ink-2: #b9c2cc;
+  --ink-3: #949ea9;
+  --ink-disabled: #5e6873;
+
+  --accent: #145240;
+  --accent-hover: #1a6650;
+  --accent-soft: rgb(62 224 160 / 0.14);
+  --accent-ink: #3ee0a0;
+
+  --night: #05070a;
+
+  --error: #ff8a7e;
+  --error-soft: #2a1513;
+  --error-line: #5a2620;
+  --success: #3ee0a0;
+  --scrim: rgb(0 0 0 / 0.6);
+  --surface-glass: rgb(21 26 31 / 0.78);
+  --surface-glass-strong: rgb(21 26 31 / 0.94);
+  --canvas-glass: rgb(11 14 17 / 0.92);
+  --canvas-clear: rgb(11 14 17 / 0);
+
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.5);
+  --inset-highlight: inset 0 0 0 1px rgb(255 255 255 / 0.06);
+  --shadow-inset: inset 0 1px 2px rgb(0 0 0 / 0.4);
+  --glow: radial-gradient(closest-side, rgb(62 224 160 / 0.16), rgb(62 224 160 / 0));
+  --shadow-md: 0 30px 60px -30px rgb(0 0 0 / 0.75);
+  --shadow-lg: 0 4px 12px rgb(0 0 0 / 0.4), 0 40px 80px -32px rgb(0 0 0 / 0.8);
+}
+
+/* ---- tablet: slightly tighter type and spacing ---- */
+@media (max-width: 960px) {
+  :root {
+    --fs-md: 1.0625rem; /* 17 */
+    --fs-lg: 1.25rem; /* 20 */
+    --space-6: 20px;
+    --space-7: 28px;
+    --space-8: 36px;
+    --space-9: 44px;
+    --space-10: 64px;
+    --radius-xl: 32px;
+  }
+}
+
+/* ---- mobile: compact, so every row fits at 375px ---- */
+@media (max-width: 560px) {
+  :root {
+    --fs-xs: 0.6875rem; /* 11 */
+    --fs-caption: 0.75rem; /* 12 */
+    --fs-sm: 0.8125rem; /* 13 */
+    --fs-body-sm: 0.875rem; /* 14 */
+    --fs-base: 0.9375rem; /* 15 */
+    --fs-md: 1rem; /* 16 */
+    --fs-title: 1.0625rem; /* 17 */
+    --fs-lg: 1.125rem; /* 18 */
+    --fs-page: 2rem; /* 32 */
+    --fs-display: 1.875rem; /* 30 */
+    --space-4: 14px;
+    --space-5: 16px;
+    --space-6: 18px;
+    --space-7: 24px;
+    --space-8: 28px;
+    --space-9: 36px;
+    --space-10: 48px;
+    --gap-bento: 10px;
+    --radius-lg: 24px;
+    --radius-xl: 28px;
+    --control-h: 42px;
+    --header-h: 72px;
+  }
+}
+
+/* ---------- reset & base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scrollbar-color: var(--line-strong) var(--canvas);
+}
+
+body {
+  margin: 0;
+  transition: background-color var(--dur-slow) var(--ease);
+  min-height: 100dvh;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-heading);
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* No native outlines anywhere (buttons, selects, inputs, links, dialog).
+   Keyboard focus is still clearly visible through the forest + mint ring below,
+   which only appears for keyboard navigation (:focus-visible). */
+*,
+*:focus,
+*:focus-visible {
+  outline: 0;
+}
+
+:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+/* Containers focused from code (e.g. <main tabindex="-1"> after a route
+   change) are not controls: Safari treats that programmatic focus as
+   :focus-visible, which drew the ring as a line above the footer. */
+main[tabindex='-1']:focus-visible {
+  box-shadow: none;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--mint);
+  color: var(--accent);
+}
+
+/* ---------- utilities ---------- */
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* machine data only: domains, numbers, dates */
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-weight: 450;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--control-h);
+  padding: 0 var(--space-6);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--mint);
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+.btn:hover {
+  background: var(--accent-hover);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn[aria-busy='true'] {
+  cursor: progress;
+}
+
+.btn--ghost {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--inset-highlight);
+}
+
+.btn--ghost:hover {
+  background: var(--surface-sunken);
+}
+
+/* text link style for inline links */
+.link {
+  color: var(--accent-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent-ink) 35%, transparent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  border-radius: 2px;
+  transition:
+    color var(--dur-fast) var(--ease),
+    text-decoration-color var(--dur-fast) var(--ease);
+}
+
+.link:hover {
+  color: var(--accent-ink);
+  text-decoration-color: currentColor;
+}
+
+/* white bento tile used as the page header of New AI and About */
+.page-head {
+  position: relative;
+  isolation: isolate;
+  margin-top: var(--space-7);
+  padding: var(--space-9) clamp(var(--space-6), 4vw, var(--space-9));
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--inset-highlight);
+}
+
+/* the slow mint light in the corner of white header tiles */
+.page-head::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -160px;
+  right: -140px;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: var(--glow);
+  animation: drift 14s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes drift {
+  to {
+    transform: translate(-40px, 30px) scale(1.2);
+  }
+}
+
+.page-title {
+  font-size: var(--fs-page);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+}
+
+.soft {
+  color: var(--ink-3);
+}
+
+.accent-dot {
+  color: var(--accent);
+}
+
+@media (max-width: 560px) {
+  .page-head {
+    margin-top: var(--space-4);
+    padding: var(--space-8) var(--space-5) var(--space-6);
+  }
+}
+
+/* previous results while new ones load (filters changed) */
+.is-refreshing {
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity var(--dur-slow) var(--ease);
+}
+
+/* small sentence-case label (used sparingly, never above every heading) */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  color: var(--ink-3);
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--space-4);
+  z-index: 100;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--mint);
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

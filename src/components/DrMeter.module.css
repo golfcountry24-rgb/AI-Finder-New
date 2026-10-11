@@ -1,0 +1,60 @@
+.meter {
+  display: inline-flex;
+  /* baseline: the bars stand on the same line as the text (bottom of the bars = text baseline) */
+  align-items: baseline;
+  gap: var(--space-2);
+  color: var(--card-muted, var(--ink-3));
+  font-size: var(--fs-xs);
+}
+
+.label {
+  font-weight: 500;
+}
+
+.value {
+  min-width: 2ch;
+  color: var(--card-fg, var(--ink));
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* rising bars: each one a little taller, the filled ones in forest (mint on ink) */
+.bar {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+
+.bar span {
+  width: 3px;
+  border-radius: 2px;
+  background: var(--meter-off, var(--line));
+}
+
+.bar span:nth-child(1) { height: 3px; }
+.bar span:nth-child(2) { height: 4px; }
+.bar span:nth-child(3) { height: 5px; }
+.bar span:nth-child(4) { height: 6px; }
+.bar span:nth-child(5) { height: 7px; }
+.bar span:nth-child(6) { height: 8px; }
+.bar span:nth-child(7) { height: 9px; }
+.bar span:nth-child(8) { height: 10px; }
+.bar span:nth-child(9) { height: 11px; }
+.bar span:nth-child(10) { height: 12px; }
+
+.bar .on {
+  background: var(--meter-on, var(--accent));
+}
+
+@media (max-width: 560px) {
+  .meter {
+    gap: 6px;
+  }
+
+  .bar span {
+    width: 2px;
+  }
+}

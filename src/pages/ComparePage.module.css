@@ -1,0 +1,246 @@
+.page {
+  padding-bottom: var(--space-10);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.lead {
+  max-width: 60ch;
+  color: var(--ink-2);
+  font-size: var(--fs-md);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.empty {
+  margin-top: var(--gap-bento);
+}
+
+.note {
+  margin: var(--space-5) 0 0;
+  color: var(--ink-3);
+}
+
+/* the table scrolls sideways on narrow screens; the field names stay pinned */
+.scroller {
+  margin-top: var(--gap-bento);
+  overflow-x: auto;
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--inset-highlight);
+  overscroll-behavior-x: contain;
+}
+
+.table {
+  width: 100%;
+  min-width: calc(180px + var(--cols) * 240px);
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.table th,
+.table td {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  font-size: var(--fs-sm);
+}
+
+.table tbody th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  width: 180px;
+  background: var(--surface);
+  color: var(--ink-3);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.corner {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  width: 180px;
+  background: var(--surface);
+}
+
+.table thead th {
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.table tbody tr {
+  transition: background-color var(--dur) var(--ease);
+}
+
+.table tbody tr:hover td,
+.table tbody tr:hover th {
+  background: var(--surface-sunken);
+}
+
+.table tr:last-child th,
+.table tr:last-child td {
+  border-bottom: 0;
+}
+
+.siteHead {
+  font-family: var(--font-sans);
+}
+
+.siteCell {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.siteName {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.siteName a,
+.siteName > span:first-child {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.siteName a:hover {
+  color: var(--accent-ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.siteName :global(.mono) {
+  color: var(--ink-3);
+}
+
+.remove {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--surface-sunken);
+  color: var(--ink-2);
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    transform var(--dur-slow) var(--ease-spring);
+}
+
+.remove:hover {
+  background: var(--error-soft);
+  color: var(--error);
+  transform: rotate(90deg);
+}
+
+.remove svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.summary {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+
+.dr,
+.date {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.rel {
+  color: var(--ink-3);
+  font-size: var(--fs-caption);
+}
+
+.badge {
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--mint);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+
+.missing {
+  color: var(--ink-3);
+}
+
+.skeleton {
+  display: block;
+  width: 70%;
+  height: 12px;
+  border-radius: var(--radius-xs);
+  background: var(--surface-sunken);
+  animation: pulse-bg 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-bg {
+  to {
+    opacity: 0.5;
+  }
+}
+
+.cellActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+@media (max-width: 560px) {
+  .table {
+    min-width: calc(120px + var(--cols) * 220px);
+  }
+
+  .table tbody th,
+  .corner {
+    width: 120px;
+  }
+
+  .table th,
+  .table td {
+    padding: var(--space-3);
+  }
+
+  .siteCell {
+    flex-wrap: wrap;
+  }
+
+  .siteName a,
+  .siteName > span:first-child {
+    font-size: var(--fs-base);
+  }
+}

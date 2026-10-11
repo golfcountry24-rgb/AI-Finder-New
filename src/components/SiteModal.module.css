@@ -1,0 +1,316 @@
+.dialog {
+  /* Bootstrap-style: the dialog is a full-screen transparent layer that scrolls as a
+     whole, the white card (.body) grows with its content — no inner scrollbar */
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: var(--space-8) var(--space-4);
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.dialog::backdrop {
+  background: var(--scrim);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* only while open — a closed <dialog> must keep the browser's display: none */
+.dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- open / close: layer + backdrop fade together, the card slides ---- */
+.dialog[open] {
+  animation: layer-in 460ms var(--ease) both;
+}
+
+.dialog[open] .body {
+  animation: card-in 460ms var(--ease) both;
+}
+
+.dialog[open]::backdrop {
+  animation: layer-in 460ms var(--ease) both;
+}
+
+.dialog[data-state='closing'] {
+  animation: layer-out 320ms var(--ease-in-out) both;
+}
+
+.dialog[data-state='closing'] .body {
+  animation: card-out 320ms var(--ease-in-out) both;
+}
+
+.dialog[data-state='closing']::backdrop {
+  animation: layer-out 320ms var(--ease-in-out) both;
+}
+
+@keyframes layer-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes layer-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes card-in {
+  from {
+    transform: translateY(32px) scale(0.98);
+  }
+}
+
+@keyframes card-out {
+  to {
+    transform: translateY(24px) scale(0.98);
+  }
+}
+
+/* the card */
+.body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  width: 100%;
+  max-width: 640px;
+  margin: auto; /* centred when short, scrolls with the layer when tall */
+  padding: var(--space-8);
+  border: 0;
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg), var(--inset-highlight);
+}
+
+.close {
+  position: absolute;
+  z-index: 2;
+  top: var(--space-5);
+  right: var(--space-5);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--surface-sunken);
+  color: var(--ink);
+  font-size: 1.375rem;
+  line-height: 1;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.close:hover {
+  background: var(--accent);
+  color: var(--mint);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding-right: 48px;
+}
+
+.titles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.titles :global(.mono) {
+  color: var(--ink-3);
+}
+
+.name {
+  font-size: var(--fs-heading);
+  line-height: 1.12;
+}
+
+.pageTitle {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--canvas);
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.label {
+  font-family: var(--font-sans);
+  color: var(--ink-3);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.summary {
+  max-width: 62ch;
+  color: var(--ink);
+  font-size: var(--fs-base);
+  line-height: var(--lh-body);
+}
+
+.drRow {
+  padding: var(--space-1) 0 var(--space-2);
+}
+
+/* data table: hairline rows, label left / value right */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.facts > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.facts > div:nth-child(odd) {
+  padding-right: var(--space-4);
+}
+
+.facts > div:nth-child(even) {
+  padding-left: var(--space-4);
+  border-left: 1px solid var(--line);
+}
+
+.facts dt {
+  color: var(--ink-3);
+  font-size: var(--fs-sm);
+}
+
+.facts dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+/* value and hint never break inside: if both don't fit, the whole hint moves down */
+.facts dd {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  column-gap: 1ch;
+}
+
+.value {
+  min-width: 0;
+}
+
+.hint {
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  padding-top: var(--space-2);
+}
+
+.pageLink {
+  margin-left: auto;
+  padding: var(--space-2) 0;
+}
+
+@media (max-width: 560px) {
+  /* bottom sheet: the card sits at the bottom edge; a tall card scrolls with the layer */
+  .dialog {
+    padding: var(--space-9) 0 0;
+  }
+
+  .body {
+    max-width: none;
+    margin: auto 0 0;
+    border-width: 1px 0 0;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  }
+
+  .dialog[open] .body {
+    animation-name: sheet-in;
+  }
+
+  .dialog[data-state='closing'] .body {
+    animation-name: sheet-out;
+  }
+
+  @keyframes sheet-in {
+    from {
+      transform: translateY(100%);
+    }
+  }
+
+  @keyframes sheet-out {
+    to {
+      transform: translateY(100%);
+    }
+  }
+
+  .body {
+    gap: var(--space-5);
+    padding: var(--space-6) var(--space-4) var(--space-7);
+  }
+
+  /* grab handle hint for the bottom sheet */
+  .body::before {
+    content: '';
+    align-self: center;
+    width: 36px;
+    height: 4px;
+    margin: calc(var(--space-2) * -1) 0 var(--space-1);
+    border-radius: var(--radius-pill);
+    background: var(--line-strong);
+  }
+
+  .close {
+    top: var(--space-4);
+    right: var(--space-4);
+  }
+
+  .name {
+    font-size: var(--fs-lg);
+  }
+
+  .facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .facts > div:nth-child(n) {
+    padding-inline: 0;
+    border-left: 0;
+  }
+
+  .actions > * {
+    flex: 1 1 100%;
+  }
+}

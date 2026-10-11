@@ -1,0 +1,59 @@
+.switch {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex: none;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--canvas);
+}
+
+/* the active pill slides between the options with a little overshoot */
+.thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  box-shadow: var(--shadow-xs);
+  transform: translateX(calc(var(--index) * 100%));
+  transition: transform var(--dur-lift) var(--ease-spring);
+}
+
+.option {
+  position: relative;
+  z-index: 1;
+  min-width: 42px;
+  min-height: 38px;
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink-3);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: color var(--dur) var(--ease);
+}
+
+.option:hover {
+  color: var(--ink);
+}
+
+.active {
+  color: var(--ink);
+}
+
+.option:focus-visible {
+  box-shadow: var(--focus-ring-inset);
+}
+
+@media (max-width: 720px) {
+  .option {
+    min-width: 36px;
+    min-height: 34px;
+    padding: 0 4px;
+  }
+}

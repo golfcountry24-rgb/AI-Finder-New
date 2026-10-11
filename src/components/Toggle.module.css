@@ -1,0 +1,68 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--control-h);
+  padding: 0 var(--space-4) 0 var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--dur) var(--ease);
+}
+
+.toggle:hover {
+  background: var(--surface-sunken);
+}
+
+.toggle input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.track {
+  position: relative;
+  width: 40px;
+  height: 24px;
+  flex: none;
+  border-radius: var(--radius-pill);
+  background: var(--line-strong);
+  transition: background-color var(--dur) var(--ease);
+}
+
+.track::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: var(--shadow-knob);
+  transition:
+    transform var(--dur-slow) var(--ease-spring),
+    background-color var(--dur) var(--ease);
+}
+
+.toggle input:checked + .track {
+  background: var(--accent);
+}
+
+.toggle input:checked + .track::after {
+  background: var(--mint);
+  transform: translateX(16px);
+}
+
+.toggle input:focus-visible + .track {
+  box-shadow: var(--focus-ring);
+}
+
+.text {
+  white-space: nowrap;
+  color: var(--ink);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}

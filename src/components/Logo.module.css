@@ -1,0 +1,61 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: var(--radius-pill);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.mark {
+  width: 34px;
+  height: 34px;
+  flex: none;
+}
+
+.bg {
+  fill: var(--accent);
+}
+
+.lens,
+.handle {
+  stroke: var(--mint);
+}
+
+.word {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.inverted {
+  color: var(--night-text);
+}
+
+.inverted .bg {
+  fill: var(--mint);
+}
+
+.inverted .lens,
+.inverted .handle {
+  stroke: var(--accent);
+}
+
+/* the magnifier tilts with a small spring on hover (CSS only) */
+.glass {
+  transform-origin: 14.5px 14.5px;
+  transition: transform var(--dur-lift) var(--ease-spring);
+}
+
+.logo:hover .glass {
+  transform: rotate(-16deg) scale(1.06);
+}
+
+/* the header on very narrow phones keeps only the mark (the link still has its name) */
+@media (max-width: 400px) {
+  .compact .word {
+    display: none;
+  }
+}

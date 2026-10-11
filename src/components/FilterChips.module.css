@@ -1,0 +1,125 @@
+.wrap {
+  position: relative;
+  min-width: 0;
+  padding: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-track);
+}
+
+.track {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  border-radius: var(--radius-pill);
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+/* soft edges where the track continues */
+.fadeStart .track {
+  mask-image: linear-gradient(to right, transparent 0, #000 64px);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 64px);
+}
+
+.fadeEnd .track {
+  mask-image: linear-gradient(to left, transparent 0, #000 64px);
+  -webkit-mask-image: linear-gradient(to left, transparent 0, #000 64px);
+}
+
+.fadeStart.fadeEnd .track {
+  mask-image: linear-gradient(to right, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%);
+}
+
+.chip {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur-fast) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    transform var(--dur-slow) var(--ease-spring);
+}
+
+.chip:hover {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.chip:active {
+  transform: scale(0.95);
+}
+
+.active,
+.active:hover {
+  background: var(--accent);
+  color: var(--mint);
+  box-shadow: 0 8px 18px -10px rgb(15 58 44 / 0.7);
+}
+
+.chip:focus-visible {
+  box-shadow: var(--focus-ring-inset);
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-top: -18px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.arrow:hover {
+  background: var(--accent);
+  color: var(--mint);
+}
+
+.arrow svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.left {
+  left: 6px;
+}
+
+.right {
+  right: 6px;
+}
+
+/* touch screens scroll with a swipe — arrows are not needed */
+@media (hover: none) {
+  .arrow {
+    display: none;
+  }
+}

@@ -1,0 +1,130 @@
+.tray {
+  position: fixed;
+  z-index: 15;
+  left: 50%;
+  bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: calc(100vw - 2 * var(--gutter));
+  padding: 8px 8px 8px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--night);
+  color: var(--night-text);
+  box-shadow: 0 24px 60px -20px rgb(0 0 0 / 0.55), inset 0 0 0 1px var(--night-line);
+  transform: translateX(-50%);
+  animation: tray-in var(--dur-lift) var(--ease-drawer);
+}
+
+@keyframes tray-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 120%);
+  }
+}
+
+.sites {
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.sites li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: none;
+  padding: 4px 4px 4px 4px;
+  border-radius: var(--radius-pill);
+  background: var(--night-2);
+  animation: chip-in var(--dur-slow) var(--ease-spring);
+}
+
+@keyframes chip-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
+.name {
+  max-width: 12ch;
+  overflow: hidden;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remove {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--night-muted);
+}
+
+.remove:hover {
+  background: rgb(255 255 255 / 0.12);
+  color: var(--night-text);
+}
+
+.remove svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.count {
+  flex: none;
+  color: var(--night-muted);
+  font-size: var(--fs-caption);
+  white-space: nowrap;
+}
+
+.open {
+  flex: none;
+  background: var(--mint);
+  color: var(--accent);
+}
+
+.open:hover {
+  background: #6ff0bd;
+}
+
+.clear {
+  flex: none;
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--night-muted);
+  font-size: var(--fs-sm);
+}
+
+.clear:hover {
+  color: var(--night-text);
+}
+
+@media (max-width: 720px) {
+  .name,
+  .count {
+    display: none;
+  }
+
+  .tray {
+    gap: var(--space-2);
+  }
+}

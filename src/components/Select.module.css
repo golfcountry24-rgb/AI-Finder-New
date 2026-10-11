@@ -1,0 +1,201 @@
+.select {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--control-h);
+  padding-left: var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  transition: background-color var(--dur) var(--ease);
+}
+
+.select:hover,
+.select[data-open] {
+  background: var(--surface-sunken);
+}
+
+.label {
+  color: var(--ink-3);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--control-h);
+  padding: 0 var(--space-4) 0 var(--space-1);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.trigger:focus-visible {
+  box-shadow: var(--focus-ring-inset);
+}
+
+.chevron {
+  width: 10px;
+  height: 10px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform var(--dur-slow) var(--ease);
+}
+
+[data-open] .chevron {
+  transform: rotate(180deg);
+}
+
+/* ---- the list: fades and slides in, items follow in a short cascade ---- */
+.menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 30;
+  min-width: 100%;
+  max-height: 320px;
+  margin: 0;
+  padding: 6px;
+  overflow-y: auto;
+  list-style: none;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg), var(--inset-highlight);
+  transform-origin: top right;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px) scale(0.97);
+  transition:
+    opacity 200ms var(--ease),
+    transform 200ms var(--ease),
+    visibility 0s linear 200ms;
+}
+
+.top {
+  top: auto;
+  bottom: calc(100% + 8px);
+  transform-origin: bottom right;
+  transform: translateY(6px) scale(0.97);
+}
+
+[data-open] .menu {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 260ms var(--ease),
+    transform 320ms var(--ease),
+    visibility 0s;
+}
+
+.menu:focus-visible {
+  box-shadow: var(--shadow-lg), var(--focus-ring-inset);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  min-height: 42px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    opacity 200ms var(--ease),
+    transform 200ms var(--ease);
+}
+
+[data-open] .option {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0s, 0s, calc(40ms + var(--i) * 25ms), calc(40ms + var(--i) * 25ms);
+}
+
+.active {
+  background: var(--surface-sunken);
+  color: var(--ink);
+}
+
+.option[aria-selected='true'] {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.check {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  fill: none;
+  stroke: var(--accent-ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+
+.option[aria-selected='true'] .check {
+  opacity: 1;
+}
+
+/* phones: the caption is hidden visually (still read by screen readers) so the
+   toggle and the select fit on one line */
+@media (max-width: 560px) {
+  .select {
+    padding-left: 0;
+  }
+
+  .label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  /* in a tight row the select shrinks (value gets "…") instead of pushing the row off-screen */
+  .select {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .trigger {
+    min-width: 0;
+    max-width: 100%;
+    padding-left: var(--space-4);
+  }
+
+  .chevron {
+    flex: none;
+  }
+
+  .menu {
+    max-width: calc(100vw - 2 * var(--gutter));
+  }
+
+  .value {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
